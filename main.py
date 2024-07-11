@@ -20,5 +20,21 @@ station_analysis = station_analysis.sort_values(by=["CountOfDelays"], ascending=
 for r in dataframe_to_rows(station_analysis, index=False, header=True):
     ws.append(r)
 
+
+chart1 = BarChart()
+chart1.type = "col"
+chart1.style = 10
+chart1.title = "Bar Chart"
+chart1.y_axis.title = 'No Of delays'
+chart1.x_axis.title = 'Station name'
+data = Reference(ws, min_col=2, min_row=1, max_row=6, max_col=2)
+cats = Reference(ws, min_col=1, min_row=2, max_row=6)
+
+chart1.add_data(data, titles_from_data=True)
+chart1.set_categories(cats)
+chart1.shape = 4
+ws.add_chart(chart1, "D2")
+
+
 wb.save("pandas_openpyxl_practice.xlsx")
 
